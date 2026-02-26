@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model DistributorLead {
+  id           String   @id @default(uuid())
+  shopName     String
+  ownerName    String
+  mobileNumber String
+  shopAddress  String
+  pincode      String
+  shopType     String
+  gstNumber    String?
+  shopPhotoUrl String?
+  createdAt    DateTime @default(now())
+}
