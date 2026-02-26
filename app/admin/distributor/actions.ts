@@ -75,13 +75,9 @@ export async function getDistributorLeads(
       },
     };
   } catch (error) {
-    console.error("Error fetching distributor leads:", error);
-
-    return {
-      success: false,
-      message: "Failed to fetch distributor leads",
-    };
-  }
+  console.error("REAL ERROR:", error);
+  throw error;
+}
 }
 
 /* ================================

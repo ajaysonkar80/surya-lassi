@@ -6,15 +6,16 @@ import {
 import { revalidatePath } from "next/cache";
 
 type PageProps = {
-  searchParams?: {
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 };
 
 export default async function AdminDistributorsPage({
   searchParams,
 }: PageProps) {
-  const currentPage = Number(searchParams?.page) || 1;
+  const params = await searchParams;
+  const currentPage = Number(params?.page) || 1;
 
   const result = await getDistributorLeads(currentPage, 10);
 
@@ -35,7 +36,7 @@ export default async function AdminDistributorsPage({
     const id = formData.get("id") as string;
 
     await deleteDistributorLead(id);
-    revalidatePath("/admin/distributors");
+    revalidatePath("/admin/distributor");
   }
 
   return (
@@ -47,7 +48,6 @@ export default async function AdminDistributorsPage({
 
         <div className="overflow-x-auto rounded-lg border border-gray-200">
           <table className="w-full text-sm text-left text-gray-800">
-            {/* Table Header */}
             <thead className="bg-gray-800 text-white">
               <tr>
                 <th className="px-4 py-3 font-semibold">Shop</th>
@@ -56,14 +56,13 @@ export default async function AdminDistributorsPage({
                 <th className="px-4 py-3 font-semibold">Pincode</th>
                 <th className="px-4 py-3 font-semibold">Type</th>
                 <th className="px-4 py-3 font-semibold">Date</th>
-                <th className="px-4 py-3 font-semibold text-center">
+                <th className="px-4 py-3 text-center font-semibold">
                   Action
                 </th>
               </tr>
             </thead>
 
-            {/* Table Body */}
-            <tbody className="bg-white">
+            <tbody>
               {leads.length === 0 && (
                 <tr>
                   <td
@@ -125,7 +124,6 @@ export default async function AdminDistributorsPage({
           </table>
         </div>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex justify-center mt-8 gap-2">
             {Array.from({ length: totalPages }).map((_, index) => {
@@ -134,7 +132,7 @@ export default async function AdminDistributorsPage({
               return (
                 <a
                   key={pageNumber}
-                  href={`/admin/distributors?page=${pageNumber}`}
+                  href={`/admin/distributor?page=${pageNumber}`}
                   className={`px-4 py-2 rounded-md text-sm font-medium ${
                     pageNumber === currentPage
                       ? "bg-orange-600 text-white"
