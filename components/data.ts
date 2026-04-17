@@ -11,8 +11,7 @@ export const navigation = [
   { label: 'Our Lassis', href: '#' },
   { label: 'Our Story', href: '#' },
   { label: 'The Pro-ssi Story', href: '#' },
-  { label: 'Health Benefits', href: '#' },
-  { label: 'Recipes', href: '#' },
+  { label: 'Distributor', href: '/distributor' },
 ];
 
 export const hero = {

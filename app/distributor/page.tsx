@@ -15,7 +15,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+      className="w-full bg-[#c2a16d] text-white py-3 rounded-lg font-semibold hover:bg-[#b08f5c] transition disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-[#c2a16d] focus:ring-offset-2"
     >
       {pending ? "Submitting..." : "Submit Application"}
     </button>
@@ -29,12 +29,12 @@ export default function DistributorPage() {
   );
 
   const inputBaseStyles =
-    "w-full border border-gray-300 rounded-lg p-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 caret-orange-600";
+    "w-full border border-gray-300 rounded-lg p-3 text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 caret-purple-600";
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-6 py-16">
-      <div className="max-w-2xl w-full bg-white shadow-2xl rounded-2xl p-10">
-        <h1 className="text-4xl font-bold text-gray-900 mb-3">
+    <div className="min-h-screen bg-[#fffbf2] flex items-center justify-center px-6 py-16">
+      <div className="max-w-2xl w-full bg-white shadow-2xl rounded-2xl p-10 border border-purple-100">
+        <h1 className="text-4xl font-bold text-purple-800 mb-3">
           Become a Distributor
         </h1>
 
@@ -57,7 +57,7 @@ export default function DistributorPage() {
         <form action={formAction} className="space-y-6">
           {/* Shop Name */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               Shop Name
             </label>
             <input
@@ -65,7 +65,7 @@ export default function DistributorPage() {
               placeholder="Enter your shop name"
               className={inputBaseStyles}
             />
-            {state.errors?.shopName && (
+            {state.errors?.shopName?.[0] && (
               <p className="text-red-600 text-sm mt-1">
                 {state.errors.shopName[0]}
               </p>
@@ -74,7 +74,7 @@ export default function DistributorPage() {
 
           {/* Owner Name */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               Owner Name
             </label>
             <input
@@ -82,7 +82,7 @@ export default function DistributorPage() {
               placeholder="Enter owner's full name"
               className={inputBaseStyles}
             />
-            {state.errors?.ownerName && (
+            {state.errors?.ownerName?.[0] && (
               <p className="text-red-600 text-sm mt-1">
                 {state.errors.ownerName[0]}
               </p>
@@ -91,7 +91,7 @@ export default function DistributorPage() {
 
           {/* Mobile */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               Mobile Number
             </label>
             <input
@@ -99,7 +99,7 @@ export default function DistributorPage() {
               placeholder="Enter 10-digit mobile number"
               className={inputBaseStyles}
             />
-            {state.errors?.mobileNumber && (
+            {state.errors?.mobileNumber?.[0] && (
               <p className="text-red-600 text-sm mt-1">
                 {state.errors.mobileNumber[0]}
               </p>
@@ -108,7 +108,7 @@ export default function DistributorPage() {
 
           {/* Address */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               Shop Address
             </label>
             <textarea
@@ -117,7 +117,7 @@ export default function DistributorPage() {
               rows={4}
               className={inputBaseStyles}
             />
-            {state.errors?.shopAddress && (
+            {state.errors?.shopAddress?.[0] && (
               <p className="text-red-600 text-sm mt-1">
                 {state.errors.shopAddress[0]}
               </p>
@@ -126,7 +126,7 @@ export default function DistributorPage() {
 
           {/* Pincode */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               Pincode
             </label>
             <input
@@ -134,7 +134,7 @@ export default function DistributorPage() {
               placeholder="Enter 6-digit pincode"
               className={inputBaseStyles}
             />
-            {state.errors?.pincode && (
+            {state.errors?.pincode?.[0] && (
               <p className="text-red-600 text-sm mt-1">
                 {state.errors.pincode[0]}
               </p>
@@ -143,7 +143,7 @@ export default function DistributorPage() {
 
           {/* Shop Type */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               Shop Type
             </label>
             <select
@@ -162,7 +162,7 @@ export default function DistributorPage() {
               <option value="WHOLESALER">Wholesaler</option>
               <option value="OTHER">Other</option>
             </select>
-            {state.errors?.shopType && (
+            {state.errors?.shopType?.[0] && (
               <p className="text-red-600 text-sm mt-1">
                 {state.errors.shopType[0]}
               </p>
@@ -171,7 +171,7 @@ export default function DistributorPage() {
 
           {/* GST */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               GST Number (Optional)
             </label>
             <input
@@ -183,7 +183,7 @@ export default function DistributorPage() {
 
           {/* Photo URL */}
           <div>
-            <label className="block font-semibold text-gray-800 mb-2">
+            <label className="block font-semibold text-purple-900 mb-2">
               Shop Photo URL (Optional)
             </label>
             <input
