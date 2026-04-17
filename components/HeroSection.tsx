@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-amber-50 to-white">
+    <section className="relative overflow-hidden bg-linear-to-b from-amber-50 to-white">
       <Image
               src="/hero.jpg" // Ensure your image is in /public
               alt="Pro-ssi Lassi Drink"
@@ -15,7 +15,7 @@ export default function HeroSection() {
               className="object-cover"
             />
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-r from-yellow-50 via-transparent to-yellow-50" />
+        <div className="absolute inset-0 bg-linear-to-r from-yellow-50 via-transparent to-yellow-50" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
@@ -40,7 +40,7 @@ export default function HeroSection() {
 
             {/* CTA Button */}
             <div>
-              <button className="px-8 py-3 bg-gradient-to-r from-yellow-400 to-amber-700 hover:from-amber-700 hover:to-yellow-400 text-violet-900 rounded-full text-base font-semibold transition-all transform hover:scale-105 shadow-lg">
+              <button className="px-8 py-3 bg-linear-to-r from-yellow-400 to-amber-700 hover:from-amber-700 hover:to-yellow-400 text-violet-900 rounded-full text-base font-semibold transition-all transform hover:scale-105 shadow-lg">
                 {hero.ctaText}
               </button>
             </div>

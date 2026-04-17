@@ -4,17 +4,17 @@ import { footer } from './data';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className=" bg-[#fdf7ea] text-black py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
           {/* Left - Contact */}
           <div className="text-center md:text-left">
-            <p className="text-sm text-gray-400">{footer.contact}</p>
+            <p className="text-sm text-gray-900">{footer.contact}</p>
           </div>
 
           {/* Center - Legal */}
           <div className="text-center">
-            <p className="text-xs text-gray-500">{footer.legal}</p>
+            <p className="text-xs text-gray-900">{footer.legal}</p>
           </div>
 
           {/* Right - Social Icons */}
@@ -24,7 +24,7 @@ export default function Footer() {
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="text-gray-400 hover:text-white transition-colors duration-300"
+                className="text-gray-900 hover:text-black transition-colors duration-300"
               >
                 {social.icon === 'facebook' && (
                   <svg

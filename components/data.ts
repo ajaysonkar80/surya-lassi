@@ -53,8 +53,8 @@ export const features = [
 ];
 
 export const footer = {
-  contact: 'Contact information | T-sart., +91 133 0001',
-  legal: 'Legal and most remination. All rights reserved.',
+  contact: 'Contact information | support@tastykisso.com',
+  legal: 'Tasty Kisso © 2026 All rights reserved.',
   socials: [
     { icon: 'facebook', label: 'Facebook', href: '#' },
     { icon: 'instagram', label: 'Instagram', href: '#' },
