@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tasty-Kisso Lassi Website
 
-## Getting Started
+Official web experience for the **Tasty-Kisso Lassi** brand. This project introduces the brand online, captures distributor enquiries, and supports rapid product/business iteration for the team.
 
-First, run the development server:
+> ⚡ **Project status:** This project is currently under **rapid development**.
+
+## About the Brand
+
+**Tasty-Kisso Lassi** is the core brand showcased by this website. The site is designed to build awareness and expand distribution reach.
+
+At this stage, the full e-commerce operations for the Tasty-Kisso brand are managed through the **Odoo platform**, while this website focuses on brand presence and distributor engagement.
+
+## Current Pages
+
+The currently available pages include:
+
+- **Landing Page** (`/`) – main brand-facing homepage.
+- **Distributor Page** (`/distributor`) – distributor registration/enquiry flow.
+- **Admin Distributor Page** (`/admin/distributor`) – distributor lead management view.
+
+## Technologies Used
+
+### Core Framework
+
+- **Next.js 16** (App Router)
+- **React 19**
+- **TypeScript 5**
+
+### Styling & UI
+
+- **Tailwind CSS 4**
+- **shadcn/ui** + **Radix UI**
+- **Lucide React** icons
+- **Embla Carousel** (autoplay + fade plugins)
+- Utility libraries: `clsx`, `class-variance-authority`, `tailwind-merge`, `tw-animate-css`
+
+### Forms & Validation
+
+- **React Hook Form**
+- **Zod**
+- **@hookform/resolvers**
+
+### Database & Backend Integrations
+
+- **Prisma ORM**
+- **PostgreSQL** datasource
+- **Neon** integration via `@prisma/adapter-neon` and `@neondatabase/serverless`
+- **Upstash Redis** + **Upstash Rate Limit**
+- **Cloudinary** (asset/media handling)
+
+### Tooling
+
+- **ESLint**
+- **PostCSS**
+- **ts-node**
+
+## Local Development
+
+### 1) Install dependencies
+
+```bash
+npm install
+```
+
+### 2) Configure environment variables
+
+Create a `.env` file at project root and add all required keys (database, redis, cloudinary, etc.) according to your setup.
+
+### 3) Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+> Note: `npm run build` runs `prisma generate && next build`.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploying to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Option A: Vercel Dashboard (Recommended)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push this repository to GitHub/GitLab/Bitbucket.
+2. Go to [Vercel](https://vercel.com/) and click **Add New Project**.
+3. Import the repository.
+4. Keep default framework preset as **Next.js**.
+5. Add all required **Environment Variables** in Vercel project settings.
+6. Deploy.
 
-## Deploy on Vercel
+Vercel will automatically run the build and provide a production URL.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Option B: Vercel CLI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Install CLI:
+
+```bash
+npm i -g vercel
+```
+
+2. Login and deploy:
+
+```bash
+vercel
+```
+
+3. For production deployment:
+
+```bash
+vercel --prod
+```
+
+## Notes
+
+- Ensure all environment variables are configured both locally and in Vercel.
+- If Prisma migrations are introduced later, include migration workflow in CI/CD or release process.
