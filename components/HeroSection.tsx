@@ -1,97 +1,158 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { hero } from './data';
 import Image from 'next/image';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-import Fade from 'embla-carousel-fade';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
-// 1. Define your 4 images here (Make sure they exist in the /public folder)
 const backgroundImages = [
-  '/hero.jpg', // Your original image
+  '/hero-1.jpg',
   '/hero-2.jpeg',
   '/hero-3.jpeg',
   '/hero-4.jpeg'
 ];
 
+// --- FRAMER MOTION VARIANTS ---
+// Explicitly typing as 'Variants' fixes the TypeScript widening errors
+
+const slideVariants: Variants = {
+  initial: {
+    clipPath: "inset(0 0 0 100%)", 
+    scale: 1.15, 
+  },
+  animate: {
+    clipPath: "inset(0 0 0 0%)", 
+    scale: 1, 
+    transition: {
+      duration: 1.6,
+      ease: [0.77, 0, 0.175, 1], 
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 1.05, 
+    transition: {
+      duration: 1.2,
+      ease: [0.77, 0, 0.175, 1],
+    },
+  },
+};
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2, 
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const textVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  },
+};
+
 export default function HeroSection() {
-  // 2. Initialize the Embla Carousel with Fade and Autoplay
-  const [emblaRef] = useEmblaCarousel(
-    { 
-      loop: true, 
-      duration: 40, // Controls how smooth/slow the fade transition is
-      watchDrag: false // Prevents mobile users from accidentally dragging the background
-    }, 
-    [
-      Fade(),
-      Autoplay({ delay: 4000, stopOnInteraction: false }) // 4 seconds per image
-    ]
-  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+        prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); 
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    // Added min-h-[100dvh] or a fixed height so the section has shape on mobile
-    <section className="relative overflow-hidden bg-linear-to-b from-amber-50 to-white min-h-[600px] flex items-center">
+    // Updated to bg-linear-to-b and lg:min-h-150
+    <section className="relative overflow-hidden bg-linear-to-b from-amber-50 to-white min-h-[85dvh] lg:min-h-150 flex items-center">
       
-      {/* --- BACKGROUND CAROUSEL --- */}
-      {/* absolute inset-0 and z-0 puts it behind everything else */}
-      <div className="absolute inset-0 z-0" ref={emblaRef}>
-        <div className="flex h-full">
-          {backgroundImages.map((src, index) => (
-            <div 
-              key={index} 
-              className="relative flex-[0_0_100%] min-w-0 h-full"
-            >
-              <Image
-                src={src}
-                alt={`Pro-ssi Lassi Drink ${index + 1}`}
-                fill
-                priority={index === 0} // Only prioritize loading the very first image
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
+      {/* --- ANIMATED BACKGROUND CAROUSEL --- */}
+      <div className="absolute inset-0 z-0 bg-black">
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={currentIndex}
+            variants={slideVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="absolute inset-0 w-full h-full"
+          >
+            <Image
+              src={backgroundImages[currentIndex]}
+              alt={`Pro-ssi Lassi Drink ${currentIndex + 1}`}
+              fill
+              priority={currentIndex === 0}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              className="object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* --- OVERLAYS --- */}
-      {/* I kept your original yellow gradient, but added a slight dark tint (bg-black/20) 
-          so the white text stays readable regardless of which image fades in */}
-      <div className="absolute inset-0 z-0 bg-black/20">
+      <div className="absolute inset-0 z-0 bg-black/40 md:bg-black/20 pointer-events-none">
+        {/* Updated to bg-linear-to-r */}
         <div className="absolute inset-0 opacity-30 bg-linear-to-r from-yellow-50 via-transparent to-yellow-50" />
       </div>
 
       {/* --- FOREGROUND CONTENT --- */}
-      {/* z-10 ensures your text and buttons sit on top of the sliding background */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 w-full flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full">
           
-          {/* Left Content */}
-          <div className="space-y-6">
-            {/* Pretitle */}
-            <div className="space-y-2">
-              {/* Added drop-shadow-md to text so it pops against changing backgrounds */}
-              <p className="text-sm md:text-base font-bold text-yellow-50 uppercase tracking-wider drop-shadow-md">
+          <motion.div 
+            className="space-y-5 md:space-y-6 flex flex-col items-center md:items-start"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            
+            <div className="space-y-2 md:space-y-3">
+              <motion.p 
+                variants={textVariants}
+                className="text-xs sm:text-sm md:text-base font-bold text-yellow-50 uppercase tracking-widest drop-shadow-md"
+              >
                 {hero.pretitle}
-              </p>
-              {/* Main Title */}
-              <h1 className="text-5xl md:text-6xl font-bold text-yellow-50 leading-tight drop-shadow-lg">
+              </motion.p>
+              
+              <motion.h1 
+                variants={textVariants}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-yellow-50 leading-[1.1] drop-shadow-lg"
+              >
                 {hero.title}
-              </h1>
+              </motion.h1>
             </div>
 
-            {/* Description */}
-            <p className="text-lg text-yellow-50 max-w-md leading-relaxed drop-shadow-md">
+            {/* Updated max-w-[280px] to max-w-70 */}
+            <motion.p 
+              variants={textVariants}
+              className="text-base sm:text-lg text-yellow-50 max-w-70 sm:max-w-md md:max-w-lg leading-relaxed drop-shadow-md"
+            >
               {hero.description}
-            </p>
+            </motion.p>
 
-            {/* CTA Button */}
-            <div>
-              <button className="px-8 py-3 bg-linear-to-r from-yellow-400 to-amber-700 hover:from-amber-700 hover:to-yellow-400 text-violet-900 rounded-full text-base font-semibold transition-all transform hover:scale-105 shadow-lg">
+            <motion.div 
+              variants={textVariants}
+              className="pt-2 w-full sm:w-auto"
+            >
+              {/* Updated to bg-linear-to-r */}
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto px-8 md:px-10 py-3.5 md:py-4 bg-linear-to-r from-yellow-400 to-amber-700 hover:from-amber-700 hover:to-yellow-400 text-violet-900 rounded-full text-base font-bold transition-all shadow-xl"
+              >
                 {hero.ctaText}
-              </button>
-            </div>
-          </div>
+              </motion.button>
+            </motion.div>
+          </motion.div>
           
         </div>
       </div>

@@ -27,8 +27,8 @@ export const hero = {
 export const features = [
   {
     id: 'pistachios',
-    title: 'Pistachios & Cashews',
-    description: 'Premium pistachios and cashews for texture and taste.',
+    title: 'Pistachios',
+    description: 'Premium pistachios for texture and taste.',
     subtitle: 'Rich Nutty Goodness',
   },
   {
